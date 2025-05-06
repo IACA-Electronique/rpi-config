@@ -79,3 +79,29 @@ rpi-config -f /boot/conf.txt set -s <section> <param> <value>
 ```
 
 In case where there are few backups, command prompts the user to choose a version.
+
+## 🛠️ Development
+
+**Requirements :**
+* cargo (>= 1.86)
+
+### Build
+
+```bash
+cargo build 
+```
+
+### Build release
+
+```bash
+cargo build --release
+```
+
+### Run tests
+
+```bash
+cargo test
+```
+
+## 📜 Licence
+`GNU GENERAL PUBLIC LICENSE v3`
