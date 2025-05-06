@@ -1,0 +1,9 @@
+[package]
+name = "iaca_os_rpi_config"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rust-ini = "0.21.1"
+clap = { version = "4.5", features = ["derive"] }
+
