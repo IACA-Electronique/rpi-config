@@ -9,20 +9,20 @@ Allow to configure `/boot/firmware/config.txt` from command line.
 ### Show help
 
 ```bash
-os rpi-config -h
+rpi-config -h
 ```
 
 
 ### Set parameter
 
 ```bash
-os rpi-config set <param> <value>
+rpi-config set <param> <value>
 ```
 
 Specify section (by default it's `all`)
 
 ```bash
-os rpi-config set -s <section> <param> <value>
+rpi-config set -s <section> <param> <value>
 ```
 
 Availabe sections :

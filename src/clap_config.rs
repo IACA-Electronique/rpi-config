@@ -27,6 +27,8 @@ pub enum Commands {
     Preset {
         #[command(subcommand)]
         action: PresetCommands,
+        #[arg(short, long, default_value = "./presets")]
+        directory: String
     },
     ListBackup,
     Restore{
