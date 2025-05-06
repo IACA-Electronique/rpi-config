@@ -21,8 +21,6 @@ const BACKUP_DIR_NAME: &str = ".dir";
 struct App {
     config_file: ConfigFile,
     cli: Cli,
-    preset_manager: PresetManager,
-    config_file_path: String,
     backup_manager: BackupManager,
 }
 
@@ -31,11 +29,9 @@ impl App {
         let cli = Cli::parse();
         let config_file_path = cli.file.to_string();
         Self {
-            config_file_path: config_file_path.to_string(),
             cli,
             config_file: ConfigFile::new(),
             backup_manager: BackupManager::new(&config_file_path, &format!("{config_file_path}{BACKUP_DIR_NAME}"), Box::new(DefaultFileSystemManager)),
-            preset_manager: PresetManager::new(&PRESETS_DIR, &config_file_path),
         }
     }
 
