@@ -4,6 +4,9 @@ use clap::{Parser, Subcommand};
 #[command(name = "rpi-config")]
 #[command(about = "Configure /boot/firmware/config.txt from command line")]
 pub struct Cli {
+    #[arg(short, long, default_value = "/boot/firmware/config.txt")]
+    pub file: String,
+
     #[command(subcommand)]
     pub command: Commands,
 }
