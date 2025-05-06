@@ -86,3 +86,63 @@ fn test_to_string_multiple_keys_in_section() {
     let expected2 = "[section]\nkey2=value2\nkey1=value1\n";
     assert!(result == expected1 || result == expected2);
 }
+
+#[test]
+fn test_delete_without_loading_returns_error() {
+    let mut config = ConfigFile::new();
+    let result = config.delete("test_section", "test_key");
+    assert!(result.is_err());
+    assert_eq!(result.unwrap_err(), "Configuration not loaded".to_string());
+}
+
+#[test]
+fn test_delete_existing_key() {
+    let mut config = ConfigFile::new();
+    config.load("[test_section]\nkey_to_delete=value\nother_key=other_value\n");
+
+    let result = config.delete("test_section", "key_to_delete");
+    assert!(result.is_ok());
+
+    // Verify the key was deleted
+    assert_eq!(config.get("test_section", "key_to_delete"), None);
+    // Verify other keys remain intact
+    assert_eq!(config.get("test_section", "other_key"), Some("other_value".to_string()));
+}
+
+#[test]
+fn test_delete_nonexistent_key() {
+    let mut config = ConfigFile::new();
+    config.load("[test_section]\nexisting_key=value\n");
+
+    let result = config.delete("test_section", "nonexistent_key");
+    assert!(result.is_ok()); // delete_from doesn't error on non-existent keys
+
+    // Verify existing keys remain intact
+    assert_eq!(config.get("test_section", "existing_key"), Some("value".to_string()));
+}
+
+#[test]
+fn test_delete_from_nonexistent_section() {
+    let mut config = ConfigFile::new();
+    config.load("[existing_section]\nkey=value\n");
+
+    let result = config.delete("nonexistent_section", "key");
+    assert!(result.is_ok()); // delete_from doesn't error on non-existent sections
+
+    // Verify existing section remains intact
+    assert_eq!(config.get("existing_section", "key"), Some("value".to_string()));
+}
+
+#[test]
+fn test_delete_last_key_in_section() {
+    let mut config = ConfigFile::new();
+    config.load("[test_section]\nsingle_key=value\n");
+
+    let result = config.delete("test_section", "single_key");
+    assert!(result.is_ok());
+
+    // Verify the key was deleted
+    assert_eq!(config.get("test_section", "single_key"), None);
+    // The section should still exist but be empty
+    assert_eq!(config.to_string(), "[test_section]\n");
+}

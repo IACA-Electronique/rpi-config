@@ -33,6 +33,15 @@ impl ConfigFile {
             None => Err("Configuration not loaded".to_string()),
         }
     }
+    pub fn delete(&mut self, section: &str, key: &str) -> Result<(), String> {
+        match &mut self.content {
+            Some(ini) => {
+                ini.delete_from(Some(section), key);
+                Ok(())
+            }
+            None => Err("Configuration not loaded".to_string()),
+        }
+    }
     pub fn to_string(&self) -> String {
         match &self.content {
             Some(ini) => {
