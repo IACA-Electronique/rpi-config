@@ -28,10 +28,13 @@ pub enum Commands {
         #[command(subcommand)]
         action: PresetCommands,
     },
+    ListBackup,
+    Restore{
+        index : u8
+    }
 }
 
 #[derive(Subcommand)]
 pub enum PresetCommands {
-    Load { preset_name: String },
-    Backup,
+    Load { preset_name: String }
 }
