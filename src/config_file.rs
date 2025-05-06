@@ -33,4 +33,21 @@ impl ConfigFile {
             None => Err("Configuration not loaded".to_string()),
         }
     }
+    pub fn to_string(&self) -> String {
+        match &self.content {
+            Some(ini) => {
+                let mut result = String::new();
+                for (sec, prop) in ini {
+                    if sec.is_some() {
+                        result.push_str(&format!("[{}]\n", sec.unwrap()));   
+                    }
+                    for (key, value) in prop.iter() {
+                        result.push_str(&format!("{}={}\n", key, value));
+                    }
+                }
+                result
+            }
+            None => "".to_string(),
+        }
+    }
 }
