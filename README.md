@@ -37,23 +37,71 @@ Availabe sections :
 
 
 ```bash
-os rpi-config del -s <param> <value>
+rpi-config del -s <param> <value>
 ```
 
 ### Load preset
 
-It's possible to directly load entire preconfigured `config.txt` file from remote server.
+It's possible to directly load entire preconfigured `config.txt` file from presets directory.
+Presets directory need to be called `presets` and need to be located at WORKING_PATH. This directory is not automatically created.
 
 ```bash
-os rpi-config preset load <preset name>
+rpi-config preset load <preset name>
 ```
 
-### Backup preset
+### Backup
 
-At each preset command, original `config.txt` is kept.
+At each write command (except `restore`), original `config.txt` is copied in directory.
+This directory path is build as following : `<config_file_path>.dir`.
+
+####  1. List backup available
 
 ```bash
-os rpi-config preset backup
+rpi-config list-backup 
 ```
 
-In case where are few backup, command promp to user to choose version.
+#### 2. Restore
+
+```bash
+rpi-config restore <index>
+```
+
+> `index` is given in step 1.
+
+### Specify config filepath
+
+By default, it's `/boot/firmware/config.txt` but it can be changed by option `-f config_file_path`.
+
+Exemple :
+
+```bash
+rpi-config -f /boot/conf.txt set -s <section> <param> <value>
+```
+
+In case where there are few backups, command prompts the user to choose a version.
+
+## 🛠️ Development
+
+**Requirements :**
+* cargo (>= 1.86)
+
+### Build
+
+```bash
+cargo build 
+```
+
+### Build release
+
+```bash
+cargo build --release
+```
+
+### Run tests
+
+```bash
+cargo test
+```
+
+## 📜 Licence
+`GNU GENERAL PUBLIC LICENSE v3`
