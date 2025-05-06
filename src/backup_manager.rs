@@ -28,10 +28,14 @@ impl BackupManager {
             "{}/backup_{}_{}.bak",
             self.directory, timestamp, random_number
         );
-
-        match self.filesystem.copy_file(&self.path, &backup_path) {
-            Ok(_) => Ok(()),
-            Err(e) => Err(format!("Failed to create backup: {}", e)),
+        
+        if self.filesystem.create_dir_if_not_exists(&self.directory).is_ok() {
+            match self.filesystem.copy_file(&self.path, &backup_path) {
+                Ok(_) => Ok(()),
+                Err(e) => Err(format!("Failed to create backup: {}", e)),
+            }   
+        }else { 
+            Err("Unable to create backup directory".to_string()) 
         }
     }
     

@@ -31,6 +31,12 @@ mod tests {
             .times(1)
             .returning(|_, _| Ok(()));
 
+        mock.expect_create_dir_if_not_exists().withf(|path : &str| {
+            path == "/backups"
+        }).times(1).returning(|_| {
+            Ok(())
+        });
+
         let backup_manager = BackupManager::new(
             "/test/file.txt",
             "/backups",
@@ -49,6 +55,12 @@ mod tests {
             .times(1)
             .returning(|_, _| Err("Mock file copy error".to_string()));
 
+        mock.expect_create_dir_if_not_exists().withf(|path : &str| {
+            path == "/backups"
+        }).times(1).returning(|_| {
+            Ok(())
+        });
+        
         let backup_manager = BackupManager::new(
             "/test/file.txt",
             "/backups",
