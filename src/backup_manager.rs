@@ -28,17 +28,17 @@ impl BackupManager {
             "{}/backup_{}_{}.bak",
             self.directory, timestamp, random_number
         );
-        
+
         if self.filesystem.create_dir_if_not_exists(&self.directory).is_ok() {
             match self.filesystem.copy_file(&self.path, &backup_path) {
                 Ok(_) => Ok(()),
                 Err(e) => Err(format!("Failed to create backup: {}", e)),
-            }   
-        }else { 
-            Err("Unable to create backup directory".to_string()) 
+            }
+        }else {
+            Err("Unable to create backup directory".to_string())
         }
     }
-    
+
     pub fn list(&self) -> Result<Vec<String>, String> {
         let mut backups = Vec::new();
         match self.filesystem.list_files(&self.directory) {
@@ -59,18 +59,18 @@ impl BackupManager {
     pub fn restore(&self, index : u8) -> Result<(), String> {
         match self.list() {
             Ok(backups) => {
-                if(index >= backups.len() as u8) {
+                if index >= backups.len() as u8 {
                     Err("Index out of range".to_string())
                 }else {
                     let backup_path = format!("{}/{}", self.directory, backups[index as usize]);
                     match self.filesystem.copy_file(&backup_path, &self.path) {
                         Ok(_) => Ok(()),
-                        Err(e) => Err(format!("Failed to restore backup index '{}' : {}", index, e)),   
+                        Err(e) => Err(format!("Failed to restore backup index '{}' : {}", index, e)),
                     }
                 }
             }
             Err(error) => {
-                Err(format!("Unable to retrieve backup list : {error}"))   
+                Err(format!("Unable to retrieve backup list : {error}"))
             }
         }
     }

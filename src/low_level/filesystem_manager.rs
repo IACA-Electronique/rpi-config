@@ -58,6 +58,6 @@ impl FileSystemManager for DefaultFileSystemManager {
         match fs::create_dir_all(path) {
             Ok(_) => Ok(()),
             Err(error) => Err(error.to_string())
-        }   
+        }
     }
 }
