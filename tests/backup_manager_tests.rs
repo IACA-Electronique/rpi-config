@@ -1,5 +1,5 @@
-use iaca_os_rpi_config::low_level::filesystem_manager::FileSystemManager;
-use iaca_os_rpi_config::backup_manager::BackupManager;
+use ini_config::low_level::filesystem_manager::FileSystemManager;
+use ini_config::backup_manager::BackupManager;
 #[cfg(test)]
 mod tests {
     use super::*;
