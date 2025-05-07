@@ -6,13 +6,13 @@ variables:
 
 build:
   stage: build
-  image: rust:1.86.0-bullseye
+  image: rust:1.86-alpine3.21
   only:
     - tags
   variables:
     EXECUTABLE_NAME: ini_config
   script:
-    - apt-get install -y  gcc libc-dev make
+    - apk add --no-cache libc-dev make
     - rustup target add aarch64-unknown-linux-gnu
     - cargo clean
     - cargo build --release --target aarch64-unknown-linux-gnu
