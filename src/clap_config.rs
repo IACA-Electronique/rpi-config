@@ -1,8 +1,8 @@
 use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
-#[command(name = "rpi-config")]
-#[command(about = "Configure /boot/firmware/config.txt from command line")]
+#[command(name = "ini-config")]
+#[command(about = "Configure ini file type.")]
 pub struct Cli {
     #[arg(short, long, default_value = "/boot/firmware/config.txt")]
     pub file: String,
@@ -27,6 +27,8 @@ pub enum Commands {
     Preset {
         #[command(subcommand)]
         action: PresetCommands,
+        #[arg(short, long, default_value = "./presets")]
+        directory: String
     },
     ListBackup,
     Restore{

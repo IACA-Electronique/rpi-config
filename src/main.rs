@@ -12,10 +12,9 @@ use config_file::ConfigFile;
 use file_reader::FileReader;
 use file_writer::FileWriter;
 use preset_manager::PresetManager;
-use iaca_os_rpi_config::backup_manager::BackupManager;
-use iaca_os_rpi_config::low_level::filesystem_manager::DefaultFileSystemManager;
+use ini_config::backup_manager::BackupManager;
+use ini_config::low_level::filesystem_manager::DefaultFileSystemManager;
 
-const PRESETS_DIR: &str = "./presets";
 const BACKUP_DIR_NAME: &str = ".dir";
 
 struct App {
@@ -66,9 +65,9 @@ impl App {
                     Err(e) => error(&format!("Error deleting value: {e}")),
                 }
             }
-            Commands::Preset { action } => match action {
+            Commands::Preset { directory, action } => match action {
                 PresetCommands::Load { preset_name } => {
-                    let preset_manager = PresetManager::new(PRESETS_DIR, &path);
+                    let preset_manager = PresetManager::new(directory, &path);
                     match self.backup_manager.create() {
                         Ok(_) => {
                             log("Backup created.\n");

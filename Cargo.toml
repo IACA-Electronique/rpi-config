@@ -1,5 +1,5 @@
 [package]
-name = "iaca_os_rpi_config"
+name = "ini_config"
 version = "0.1.0"
 edition = "2024"
 
