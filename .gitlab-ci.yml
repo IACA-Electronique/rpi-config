@@ -12,11 +12,14 @@ build:
   variables:
     EXECUTABLE_NAME: ini_config
   script:
+    # Add community repository where cross-compilation tools are located
+    - echo "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
+    - apk update
     - apk add --no-cache libc-dev make gcc musl-dev
-    - apk add --no-cache linux-headers aarch64-linux-musl-dev
+    - apk add --no-cache cross-gcc-aarch64
     - rustup target add aarch64-unknown-linux-gnu
-    - export CC_aarch64_unknown_linux_gnu=aarch64-linux-musl-gcc
-    - export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-musl-gcc
+    - export CC_aarch64_unknown_linux_gnu=aarch64-linux-gcc
+    - export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gcc
     - cargo clean
     - cargo build --release --target aarch64-unknown-linux-gnu
     - cp target/aarch64-unknown-linux-gnu/release/${EXECUTABLE_NAME} ./${PROJECT_NAME}-aarch64
