@@ -1,69 +1,65 @@
-# IACA OS RPI CONFIG
+# INI FILE CONFIG PROGRAM
 
 ## ℹ️ Purpose
 
-Allow to configure `/boot/firmware/config.txt` from command line.
+Program to configure `.ini` file. It's useful for OS automation.
 
 ## 📖 Usage
 
 ### Show help
 
 ```bash
-rpi-config -h
+ini-config -h
 ```
 
 
 ### Set parameter
 
 ```bash
-rpi-config set <param> <value>
+ini-config set <param> <value>
 ```
 
-Specify section (by default it's `all`)
+Specify a section (by default, it's `all`)
 
 ```bash
-rpi-config set -s <section> <param> <value>
+ini-config set -s <section> <param> <value>
 ```
-
-Available sections :
-* `all`
-* `cm4`
-* `cm5`
-* `pi3`
-* `pi4`
-* `pi5`
 
 ### Remove parameter
 
-
 ```bash
-rpi-config del -s <param> <value>
+ini-config del -s <param> <value>
 ```
 
 ### Load preset
 
-It's possible to directly load entire preconfigured `config.txt` file from presets directory.
-Presets directory need to be called `presets` and need to be located at WORKING_PATH. This directory is not automatically created.
+It's possible to directly load entire preconfigured `.ini` file from *presets directory*.
+By default, *presets directory* need to be called `presets` and need to be located at `WORKING_PATH`. This directory is not automatically created.
+But it can be specified with `-d` option.
+```bash
+ini-config preset load <preset name>
+```
+
 
 ```bash
-rpi-config preset load <preset name>
+ini-config preset -d <presets dir path> load <preset name>
 ```
 
 ### Backup
 
-At each write command (except `restore`), original `config.txt` is copied in directory.
+At each write command (except `restore`), original `.ini` file is copied in directory.
 This directory path is build as following : `<config_file_path>.dir`.
 
 ####  1. List backup available
 
 ```bash
-rpi-config list-backup 
+ini-config list-backup 
 ```
 
 #### 2. Restore
 
 ```bash
-rpi-config restore <index>
+ini-config restore <index>
 ```
 
 > `index` is given in step 1.
@@ -75,7 +71,7 @@ By default, it's `/boot/firmware/config.txt` but it can be changed by option `-f
 Exemple :
 
 ```bash
-rpi-config -f /boot/conf.txt set -s <section> <param> <value>
+ini-config -f /boot/conf.txt set -s <section> <param> <value>
 ```
 
 In case where there are few backups, command prompts the user to choose a version.
