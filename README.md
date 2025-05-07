@@ -25,7 +25,7 @@ Specify section (by default it's `all`)
 rpi-config set -s <section> <param> <value>
 ```
 
-Availabe sections :
+Available sections :
 * `all`
 * `cm4`
 * `cm5`
