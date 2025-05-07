@@ -12,8 +12,8 @@ use config_file::ConfigFile;
 use file_reader::FileReader;
 use file_writer::FileWriter;
 use preset_manager::PresetManager;
-use iaca_os_rpi_config::backup_manager::BackupManager;
-use iaca_os_rpi_config::low_level::filesystem_manager::DefaultFileSystemManager;
+use ini_config::backup_manager::BackupManager;
+use ini_config::low_level::filesystem_manager::DefaultFileSystemManager;
 
 const BACKUP_DIR_NAME: &str = ".dir";
 

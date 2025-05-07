@@ -1,4 +1,4 @@
-use iaca_os_rpi_config::config_file::ConfigFile; // adjust the path according to your crate name
+use ini_config::config_file::ConfigFile; // adjust the path according to your crate name
 
 #[test]
 fn test_set_without_loading_returns_error() {
