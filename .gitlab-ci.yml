@@ -12,9 +12,10 @@ build:
   variables:
     EXECUTABLE_NAME: ini_config
   script:
-    - apk add --no-cache musl-dev gcc libc-dev make aarch64-linux-musl-gcc
-    - export CC_aarch64_unknown_linux_gnu=aarch64-linux-musl-gcc
-    - export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-musl-gcc
+    - apk add --no-cache musl-dev gcc libc-dev make gcc-aarch64-none-elf
+    - export CC_aarch64_unknown_linux_gnu=aarch64-none-elf-gcc
+    - export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-none-elf-gcc
+
     - rustup target add aarch64-unknown-linux-gnu
     - cargo clean
     - cargo build --release --target aarch64-unknown-linux-gnu
